@@ -4,4 +4,4 @@ This repository contains a collection of workflows that can be used to test GitH
 
 ## Version
 
-1.0.0
+1.0.2
