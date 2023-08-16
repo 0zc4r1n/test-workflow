@@ -11,17 +11,11 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Get Tag Information
         id: tag_info
         run: |
-          echo "Tag name: ${{ github.ref }}"
+          echo "Tag name: ${{ github.ref_name }}"
           echo "Tag branch: ${{ github.event.before }}"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Display Tag Information
-        run: |
-          echo "Tag name: ${{ steps.tag_info.outputs.tag_name }}"
-          echo "Tag branch: ${{ steps.tag_info.outputs.tag_branch }}"
+      
