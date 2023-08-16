@@ -1,17 +1,27 @@
-# A simple workflow to run a manual job
-name: Automatic workflow
+name: Tag Event Workflow
 
 on:
   push:
-  pull_request:
-    branches:
-      - main
+    tags:
+      - '*'
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v2
-      - name: Print Commit Hash
+
+      - name: Get Tag Information
+        id: tag_info
         run: |
-          echo ${{ github.sha }}
+          echo "Tag name: ${{ github.ref }}"
+          echo "Tag branch: ${{ github.event.before }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Display Tag Information
+        run: |
+          echo "Tag name: ${{ steps.tag_info.outputs.tag_name }}"
+          echo "Tag branch: ${{ steps.tag_info.outputs.tag_branch }}"
